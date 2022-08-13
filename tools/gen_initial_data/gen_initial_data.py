@@ -9,7 +9,7 @@ connection = pymysql.connect(host='localhost',
 
 with connection:
     with connection.cursor() as cursor:
-        sql = "SELECT id, title, body FROM article"
+        sql = "SELECT id, title, body FROM article WHERE id <= 3000 ORDER BY id"
         cursor.execute(sql)
         rows = cursor.fetchall()
         articles = [
@@ -17,7 +17,7 @@ with connection:
                 "id": row["id"],
                 "data": {
                     "title": row["title"],
-                    "body": row["body"].rstrip()
+                    "body": row["body"].rstrip().replace("&", "&amp;")
                 }
             }
             for row in rows
