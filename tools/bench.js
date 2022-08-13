@@ -6,8 +6,8 @@ var fs = require('fs'),
 var http_load = require('http_load'),
     engine = require('bench_engine.js');
 
-var HTTP_LOAD_PARALLEL = 2, //10,
-    HTTP_LOAD_SECONDS = 60, //180,
+var HTTP_LOAD_PARALLEL = parseInt(process.env.HTTP_LOAD_PARALLEL) || 2, //10,
+    HTTP_LOAD_SECONDS = parseInt(process.env.HTTP_LOAD_SECONDS) || 60, //180,
     COMMENT_POST_PER_MIN_MAIN = 40,
     COMMENT_POST_PER_MIN_OPT = 20,
     COMMENT_SIZE = 200;
@@ -18,7 +18,7 @@ var CHECKER_START_DURATION = Math.floor(HTTP_LOAD_SECONDS / 3) * 1000;
 var conf = JSON.parse(fs.readFileSync(__dirname + '/config.json', 'utf-8'));
 
 var teamid = process.argv[2],
-    target = conf.teams[teamid].target,
+    target = process.env.TARGET || conf.teams[teamid].target,
     targetHost = target.split(':')[0],
     targetPort = target.split(':')[1];
 
