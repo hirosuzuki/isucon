@@ -1,0 +1,22 @@
+{{define "content"}}
+{{- range .Articles }}
+<div class="article">
+<div class="title">{{.Title}}</div>
+<div class="created">{{.CreatedAt | date }}</div>
+<div class="body">
+{{- $lines := splitlines .Body -}}
+{{- $vlines := $lines -}}
+{{- if gt (len $vlines) 8 }}{{ $vlines = slice $lines 0 8 }}{{ end }}
+{{- range $vlines }}
+{{ . }}<br/>
+{{- end }}
+</div>
+<div class="articlelink">
+{{- if gt (len $lines) 8 }}
+... ...
+{{- end }}
+<a href="/article/{{.ID}}">read more</a></div>
+</div>
+{{- end }}
+{{- end }}
+{{ template "base.html"}}
