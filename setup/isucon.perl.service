@@ -1,0 +1,17 @@
+[Unit]
+Description=isucon.perl
+After=cloud-config.service
+Wants=cloud-config.service
+
+[Service]
+WorkingDirectory=/home/ubuntu/isucon/webapp/perl/
+
+User=ubuntu
+Group=ubuntu
+ExecStart=perl -Mlib=extlib/lib/perl5 extlib/bin/plackup -s Starman -E production --preload-app app.psgi
+
+Restart   = always
+Type      = simple
+
+[Install]
+WantedBy=multi-user.target
