@@ -278,7 +278,7 @@ function checkArticle(articleid, data, callback){
       var originallines = data.body.split('\n').map(function(s){return s.trim();});
       if (originallines[originallines.length - 1].length < 1)
         originallines.pop();
-      checkresult.body = (gotbodylines.join('\n') == originallines.join('\n'));
+      checkresult.body = (gotbodylines.join('\n').trim() == originallines.join('\n').trim());
       if (! checkresult.body)
         failed_reasons.push('article body mismatch, original:' + originallines.join('\n'));
 
